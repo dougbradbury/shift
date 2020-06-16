@@ -7,8 +7,8 @@
   void ShiftSequence_optimal(
       GearRatio_drivetrain_configuration initial,
       float target_ratio,
-      DriveTrainCog front,
-      DriveTrainCog rear,
+      DriveTrainCog const * const front,
+      DriveTrainCog  const * const rear,
       GearRatio_drivetrain_configuration * output,
       size_t * output_length
       );

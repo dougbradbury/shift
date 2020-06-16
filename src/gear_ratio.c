@@ -12,7 +12,7 @@ void GearRatio_drivetrain_configuration_init(GearRatio_drivetrain_configuration 
   drivetrain->ratio = GearRatio_for(front, rear);
 }
 
-GearRatio_drivetrain_configuration GearRatio_find(int front[], size_t front_length, int rear[], size_t rear_length, float target_ratio)
+GearRatio_drivetrain_configuration GearRatio_find(int const front[], size_t front_length, int const rear[], size_t rear_length, float target_ratio)
 {
   GearRatio_drivetrain_configuration best_match = { 0,0,0.0} ;
   if (front_length > 0 && rear_length > 0)
