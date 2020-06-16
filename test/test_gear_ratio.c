@@ -44,3 +44,37 @@ void test_gear_ratio_target_multiple(void)
 
   TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
 }
+
+void test_under_target_gear_ration(void)
+{
+  int front[] = {30, 15};
+  int rear[] = {19};
+  GearRatio_drivetrain_configuration expected = {30, 19, 1.578947};
+
+  GearRatio_drivetrain_configuration actual = GearRatio_find(front,2, rear, 2, 1.6);
+
+  TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
+}
+
+void test_multple_rear_cassettes(void)
+{
+  int front[] = {38, 30};
+  int rear[] = {28, 23, 19, 16};
+  GearRatio_drivetrain_configuration expected = {30, 19, 1.578947};
+
+  GearRatio_drivetrain_configuration actual = GearRatio_find(front,2, rear, 4, 1.6);
+
+  TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
+}
+
+void test_empty_cogs(void)
+{
+  int front[] = {};
+  int rear[] = {};
+  GearRatio_drivetrain_configuration expected = {0, 0, 0};
+
+  GearRatio_drivetrain_configuration actual = GearRatio_find(front,0, rear, 0, 1.6);
+
+  TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
+}
+

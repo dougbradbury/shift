@@ -14,14 +14,27 @@ static void drivetrain_configuration_init(GearRatio_drivetrain_configuration * d
 
 GearRatio_drivetrain_configuration GearRatio_find(int front[], size_t front_length, int rear[], size_t rear_length, float target_ratio)
 {
-  GearRatio_drivetrain_configuration result;
-
-  for (size_t i = 0; i < front_length; i++)
+  GearRatio_drivetrain_configuration best_match = { 0,0,0.0} ;
+  if (front_length > 0 && rear_length > 0)
   {
-    drivetrain_configuration_init(&result, front[i], rear[0]);
-    if(target_ratio == result.ratio ) {
-      return result;
+    drivetrain_configuration_init(&best_match, front[0], rear[0]);
+
+    for (size_t f = 0; f < front_length; f++)
+    {
+      for (size_t r = 0; r < rear_length; r++)
+      {
+        GearRatio_drivetrain_configuration result;
+        drivetrain_configuration_init(&result, front[f], rear[r]);
+
+        float ratio_diff = target_ratio - result.ratio;
+
+        if(ratio_diff > 0 && ratio_diff < (target_ratio - best_match.ratio) ) {
+          drivetrain_configuration_init(&best_match, front[f], rear[r]);
+        }
+
+      }
     }
   }
-  return result;
+  return best_match;
 }
+
