@@ -23,44 +23,34 @@ void ShiftSequence_optimal(
     )
 {
   int max_output_length = *output_length;
-  GearRatio_drivetrain_configuration current = initial;
+  *output_length = 0;
 
   GearRatio_drivetrain_configuration target =
     GearRatio_find(front->cogs, front->length, rear->cogs, rear->length, target_ratio);
 
-  output[0] = current;
-  *output_length = 1;
-
+  GearRatio_drivetrain_configuration current = initial;
   size_t current_front_index = find(current.front, front);
   size_t current_rear_index = find(current.rear, rear);
-
   size_t target_front_index = find(target.front, front);
   size_t target_rear_index = find(target.rear, rear);
 
-  size_t i = 1;
-  while (!equals(&current, &target) && i < max_output_length)
-  {
+
+ do {
+    GearRatio_drivetrain_configuration_init(
+        &current,
+        front->cogs[current_front_index],
+        rear->cogs[current_rear_index]);
+
+    output[(*output_length)++] = current;
+
     if (current_front_index < target_front_index)
-    {
       current_front_index++;
-    }
     else if (current_front_index > target_front_index)
-    {
       current_front_index--;
-    }
     else if (current_rear_index < target_rear_index)
-    {
       current_rear_index++;
-    }
     else if (current_rear_index > target_rear_index)
-    {
       current_rear_index--;
-    }
 
-    GearRatio_drivetrain_configuration_init(&current, front->cogs[current_front_index], rear->cogs[current_rear_index]);
-
-    output[i] = current;
-    (*output_length)++;
-    i++;
-  }
+  } while (!equals(&current, &target) && *output_length < max_output_length);
 }
