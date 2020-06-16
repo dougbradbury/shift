@@ -2,11 +2,8 @@
 #include "unity.h"
 
 #include "gear_ratio.h"
+#include "shift_helper.h"
 
-#define TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual) \
-  TEST_ASSERT_EQUAL_INT(expected.front, actual.front); \
-  TEST_ASSERT_EQUAL_INT(expected.rear, actual.rear);\
-  TEST_ASSERT_EQUAL_FLOAT(expected.ratio, actual.ratio);
 
 void setUp(void)
 {
@@ -16,7 +13,6 @@ void tearDown(void)
 {
 }
 
-//output ratio = tooth count on selected front cog / tooth count on selected rear cog
 void test_gear_ratio_for(void)
 {
     TEST_ASSERT_EQUAL_FLOAT(1.578947, GearRatio_for(30, 19));
