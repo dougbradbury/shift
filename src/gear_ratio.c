@@ -28,7 +28,7 @@ GearRatio_drivetrain_configuration GearRatio_find(int const front[], size_t fron
 
         float ratio_diff = target_ratio - result.ratio;
 
-        if(ratio_diff > 0 && ratio_diff < (target_ratio - best_match.ratio) ) {
+        if(ratio_diff >= -0.001 && ratio_diff <= (target_ratio - best_match.ratio) ) {
           GearRatio_drivetrain_configuration_init(&best_match, front[f], rear[r]);
         }
 

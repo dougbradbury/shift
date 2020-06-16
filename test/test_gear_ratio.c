@@ -85,3 +85,13 @@ void test_empty_cogs(void)
   TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
 }
 
+void test_exact_ratio_match(void)
+{
+  int front[] = {38, 30};
+  int rear[] = {28, 23, 19, 16};
+  GearRatio_drivetrain_configuration expected = {30, 19, 1.578947};
+
+  GearRatio_drivetrain_configuration actual = GearRatio_find(front,2, rear, 4, 1.578947);
+
+  TEST_ASSERT_EQUAL_DRIVETRAIN(expected, actual);
+}
